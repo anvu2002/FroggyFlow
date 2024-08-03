@@ -10,12 +10,13 @@ export const connectToDB = async () => {
     }
     try {
         await mongoose.connect(process.env.MONGODB_URI, {
-            dbName: "linker",
+            dbName: "froggyflow",
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })
         isConnected = true;
         console.log("MongoDB connected");
+        console.log("db = ",)
     } catch (error) {
         console.log(error);
     }
