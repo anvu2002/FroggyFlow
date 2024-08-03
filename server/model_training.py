@@ -33,14 +33,14 @@ good_df['label'] = 'good'
 
 #Combine data into one
 combined_data = pd.concat([bad_df, good_df], ignore_index=True)
-combined_data['time_delta'] = combined_data['time'].diff().fillna(0)
-window_size = 1000  #ms
-combined_data['rolling_mean'] = combined_data['time'].rolling(window=window_size).mean()
+# combined_data['time_delta'] = combined_data['time'].diff().fillna(0)
+# window_size = 1000  #ms
+# combined_data['rolling_mean'] = combined_data['time'].rolling(window=window_size).mean()
 
-print(combined_data.head())
-print(combined_data.tail())
+# print(combined_data.head())
+# print(combined_data.tail())
 
-combined_data['time_delta'] = combined_data['time'].diff().fillna(0)
+# combined_data['time_delta'] = combined_data['time'].diff().fillna(0)
 
 X = combined_data.drop('label', axis=1) 
 y = combined_data['label']
@@ -70,3 +70,9 @@ def predict_new_data(new_data):
     predictions = model.predict(new_data)
     scores = model.predict_proba(new_data)
     return predictions
+
+
+#For testing purposes
+columns = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'time']
+new_data= pd.DataFrame([[-0.84, -0.21, 0.50, -0.92, -0.06, -0.92, 100]], columns=columns)
+print(predict_new_data(new_data))
