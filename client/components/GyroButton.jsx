@@ -31,20 +31,22 @@ const GyroButton = ({ onErrorCallback, onDataCallback, onClickCallback }) => {
         const text = decoder.decode(value);
         const split = text.split(",")
   
-        const data = {
-          accelerometer: {
-            x: parseFloat(split[0]),
-            y: parseFloat(split[1]),
-            z: parseFloat(split[2])
-          },
-          gyroscope: {
-            x: parseFloat(split[3]),
-            y: parseFloat(split[4]),
-            z: parseFloat(split[5])
-          },
-          timestamp: Date.now()
-        }
+        // const data = {
+        //   accelerometer: {
+        //     x: parseFloat(split[0]),
+        //     y: parseFloat(split[1]),
+        //     z: parseFloat(split[2])
+        //   },
+        //   gyroscope: {
+        //     x: parseFloat(split[3]),
+        //     y: parseFloat(split[4]),
+        //     z: parseFloat(split[5])
+        //   },
+        //   timestamp: Date.now()
+        // }
   
+        const data = [...split.map((item) => parseFloat(item)), Date.now()]
+
         onDataCallback({ data })
       });
   
