@@ -1,9 +1,12 @@
 from fastapi import Request, APIRouter
+from fastapi.responses import JSONResponse
 from loguru import logger
 import json
+import pandas as pd
+
 
 # Importing the 2 ML Models
-# from gyromodel.core import predict_new_data
+from gyromodel.core import predict_new_data
 
 router = APIRouter(prefix="/api", tags=["api"])
 
@@ -18,13 +21,16 @@ async def get_similarity(request: Request):
     """
 
     data = await request.json()
-    logger.info(f"requested data = {data}")
+    logger.info(f"requested data['gyro_data'] = {data['gyro_data']}")
 
-    logger.info(f"Gyro Request Received {data}")
-    
-    # results = predict_new_data(data)
-    # return results
-    return 
+    columns = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'time']
+    new_data= pd.DataFrame([data['gyro_data']], columns=columns)
+   
+    result = predict_new_data(new_data)
+
+    logger.debug("--- POSTURE --- is " + result)
+
+    return result
 
 
 

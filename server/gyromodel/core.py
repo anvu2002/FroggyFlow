@@ -1,5 +1,6 @@
 import subprocess
 import sys
+from loguru import logger
 
 # def install_requirements():
 #     try:
@@ -25,22 +26,22 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, accuracy_score
 
-bad_df = pd.read_csv("./data/bad_test.csv")
-good_df = pd.read_csv("./data/good_test.csv")
+bad_df = pd.read_csv("gyromodel/data/bad_test.csv")
+good_df = pd.read_csv("gyromodel/data/good_test.csv")
 #Label data points as good or bad
 bad_df['label'] = 'bad'
 good_df['label'] = 'good' 
 
 #Combine data into one
 combined_data = pd.concat([bad_df, good_df], ignore_index=True)
-combined_data['time_delta'] = combined_data['time'].diff().fillna(0)
-window_size = 1000  #ms
-combined_data['rolling_mean'] = combined_data['time'].rolling(window=window_size).mean()
+# combined_data['time_delta'] = combined_data['time'].diff().fillna(0)
+# window_size = 1000  #ms
+# combined_data['rolling_mean'] = combined_data['time'].rolling(window=window_size).mean()
 
-print(combined_data.head())
-print(combined_data.tail())
+# print(combined_data.head())
+# print(combined_data.tail())
 
-combined_data['time_delta'] = combined_data['time'].diff().fillna(0)
+# combined_data['time_delta'] = combined_data['time'].diff().fillna(0)
 
 X = combined_data.drop('label', axis=1) 
 y = combined_data['label']
@@ -66,10 +67,14 @@ print("scores: ", scores_percentage)
 
 #Function to predict new data and classify them if bad or good
 def predict_new_data(new_data):
+    logger.debug("type(new_data) = ", type(new_data))
     new_data = scaler.transform(new_data)  
     predictions = model.predict(new_data)
     scores = model.predict_proba(new_data)
-    return predictions
+    return predictions[0]
 
-new_data= pd.array([[-0.84,-0.21,0.50,-0.92,-0.06,-0.92,100]])
-print(predict_new_data(new_data))
+# columns = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'time']
+# new_data= pd.DataFrame([[-0.84, -0.21, 0.50, -0.92, -0.06, -0.92, 100]], columns=columns)
+
+# breakpoint()
+# print(predict_new_data(new_data))
