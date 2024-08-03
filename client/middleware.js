@@ -20,9 +20,9 @@ export async function middleware(req) {
         return NextResponse.redirect(new URL("/profile", req.nextUrl));
     }
 
-    if (!publicPaths && !token) {
-        return NextResponse.redirect(new URL("/landing", req.nextUrl));
-    }
+    // if (!publicPaths && !token) {
+    //     return NextResponse.redirect(new URL("/landing", req.nextUrl));
+    // }
 }
 
 export const config = {

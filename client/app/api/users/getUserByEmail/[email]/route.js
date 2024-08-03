@@ -1,14 +1,8 @@
 import { connectToDB } from "@/utils/database";
 import User from "@/models/user";
-import { jwtMiddleware } from '@/middleware/jwtMiddleware';
 
 export const GET = async (req, { params }) => {
-    const authResponse = await jwtMiddleware(req);
-    if (authResponse) {
-        return authResponse;
-    }
-    
-    try {
+      try {
         await connectToDB();
         const email = params.email;
         if (!email) {

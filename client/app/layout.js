@@ -1,8 +1,9 @@
 import { Open_Sans } from 'next/font/google';
 import "./globals.css";
 import { websiteName } from "@/config";
-import RootLayout from './rootlayout.js';
-import { ThemeProvider } from "@/components/theme-provider";  
+import { UserProvider } from '@auth0/nextjs-auth0/client';
+import Navbar from "@/components/Navbar";
+
 
 const openSans = Open_Sans({ subsets: ['latin'] });
 
@@ -11,24 +12,16 @@ export const metadata = {
   description: "Frog Study Buddy",
 };
 
-export default function Layout({ children }) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
         <link rel="shortcut icon" href="/favicon.ico" />
       </head>
-      <body className={openSans.className}>
-      <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-        <RootLayout>
-          {children}
-        </RootLayout>
-        </ThemeProvider>
-      </body>
+      <UserProvider>
+        <Navbar />
+        <body className={openSans.className}>{children}</body>
+      </UserProvider>
     </html>
   );
 }

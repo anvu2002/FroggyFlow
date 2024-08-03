@@ -1,11 +1,11 @@
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
-import { signOut } from 'next-auth/react';
+import { useUser } from '@auth0/nextjs-auth0/client';
+
 
 const DropDown = ({ showMenu, setShowMenu }) => {
     const router = useRouter();
-    const { data: session } = useSession();
+    const { user, error, isLoading } = useUser();
 
     const links = [
         {
@@ -47,7 +47,7 @@ const DropDown = ({ showMenu, setShowMenu }) => {
                                     <h3 className="">{link.name}</h3>
                                 </div>
                             ))}
-                            {!session?.user ? (
+                            {user ? (
                                 <>
                                     <div onClick={() => handleClick('/login')} className="font-normal text-base justify-between hover:bg-gray-100 cursor-pointer rounded-lg p-2 m-0">
                                         <h3 className="">Login</h3>
