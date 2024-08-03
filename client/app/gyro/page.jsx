@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import GyroButton from '@/components/GyroButton';
 import Countdown from '@/components/Countdown';
 import { useRouter } from 'next/navigation';
@@ -10,6 +10,9 @@ const Page = () => {
   const gyroDataRef = useRef([]);
   const router = useRouter();
 
+  let currentPacket = {}
+  let timer = 0;
+
   const onGyroError = ({ error }) => {
     alert('An error occurred starting the session!');
     console.error(error);
@@ -17,15 +20,35 @@ const Page = () => {
 
   const onGyroData = ({ data }) => {
     gyroDataRef.current.push(data);
+    currentPacket = (data);
   };
 
   const onStart = () => {
     setStarted(true);
+    window.s = gyroDataRef
+
+    timer = setInterval(() => {
+      console.log('send data', currentPacket)
+    }, 1000);
   };
+
+  const update = async () => {
+    const resposne = await fetch(`http://localhost:${8850}/api/gyro_predict`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        gyro_data: currentPacket
+      })
+    })
+
+  }
 
   const onEnd = () => {
     localStorage.setItem('gyroData', JSON.stringify(gyroDataRef.current));
-   router.push('/profile');
+    clearInterval(timer)
+    router.push('/profile');
   };
 
   return (
