@@ -61,14 +61,7 @@ const Navbar = ( ) => {
                     <h1 className='font-extrabold text-3xl'>{websiteName}</h1>
                 </div>
                 {userInfo && (
-                    <Link href="/explore" className='hover:underline sm:flex hidden'>Explore</Link>
-                )}
-                <Link href="/about" className='hover:underline sm:flex hidden'>About</Link>
-                {userInfo?.role !== 'admin' && (
-                    <Link href="/contact" className='hover:underline sm:flex hidden'>Contact</Link>
-                )}
-                {userInfo?.role === 'admin' && (
-                    <Link href="manage-users" className='hover:underline'>Manage Users</Link>
+                    <Link href="/explore" className='hover:underline sm:flex hidden'>Let's Goo!</Link>
                 )}
                 <div className='sm:hidden'>
                     <DropDown showMenu={showMenu} setShowMenu={setShowMenu} />

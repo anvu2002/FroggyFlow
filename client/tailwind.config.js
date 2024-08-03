@@ -84,6 +84,10 @@ module.exports = {
       profile_md: '1325px',
       navbar_md: '1190px'
     },
+    backgroundImage: {
+      "frog-pattern": "url('/client/public/frog_background.png')",
+      
+    },
   },
   plugins: [require("tailwindcss-animate")],
 }
