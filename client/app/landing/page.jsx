@@ -20,44 +20,11 @@ const Page = () => {
         <div className='min-h-full-minus-navbar mt-[66px] text-center'>
             <div className='justify-center items-center'>
                 <div className='w-full'>
-                    <div className='w-full flex justify-center items-center flex-col'>
-                        <motion.h1
-                            className='sm:text-6xl font-extrabold mt-20 text-gray-800 text-5xl'
-                            initial={{ opacity: 0, y: -50 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1 }}
-                        >
-                            <span style={{ color: '#023D54' }}>Hop, </span>
-                            <span style={{ color: '#029588 ' }}>Hopping, </span>
-                            <span style={{ color: '#94DEA5' }}>Harmonize with Your Works.</span>
-                        </motion.h1>
-                        <motion.p
-                            className="text-xl text-gray-600 mt-8"
-                            initial={{ opacity: 0, y: 50 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1, delay: 0.5 }}
-                        >
-                            {websiteName} is your Number One Work and Study Partner!
-                        </motion.p>
-                        <motion.button
-                            onClick={() => router.push('/register')}
-                            className={`bg-primary-color text-white hover:bg-opacity-90 px-8 py-3 rounded-lg mt-10 font-semibold text-xl shadow-xl flex items-center`}
-                            initial={{ opacity: 0, y: 50 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1, delay: 1 }}
-                        >
-                            Get Started&nbsp;<span className="text-sm text-gray-300"> {`- It's free`}</span>
-                        </motion.button>
-                    </div>
-                    <div className='flex justify-center items-center mt-8 rounded-md'>
-                        <motion.div
-                            className='w-[1100px]'
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 1, delay: 1.5 }}
-                        >
-                            <img src='/frog_background.png' className='rounded-xl shadow-lg' />
-                        </motion.div>
+                    
+                    <div className='flex items-center mt-8'>
+                       
+                        <img src='/frog_background.png' className='shadow-lg' />
+                      
                     </div>
                     <div className='mt-24'>
                         <motion.div initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} className='text-gray-500 sm:text-lg text-xl font-bold sm:px-0 px-5'>Built by developers from around the world!</motion.div>
