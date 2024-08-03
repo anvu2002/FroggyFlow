@@ -1,20 +1,20 @@
 import subprocess
 import sys
 
-def install_requirements():
-    try:
-        # Open the requirements.txt file and read the packages
-        with open('requirements.txt', 'r') as f:
-            packages = f.read().splitlines()
+# def install_requirements():
+#     try:
+#         # Open the requirements.txt file and read the packages
+#         with open('requirements.txt', 'r') as f:
+#             packages = f.read().splitlines()
         
-        # Install each package using pip
-        for package in packages:
-            subprocess.check_call([sys.executable, '-m', 'pip', 'install', package])
-    except Exception as e:
-        print(f"An error occurred: {e}")
+#         # Install each package using pip
+#         for package in packages:
+#             subprocess.check_call([sys.executable, '-m', 'pip', 'install', package])
+#     except Exception as e:
+#         print(f"An error occurred: {e}")
 
-if __name__ == "__main__":
-    install_requirements()
+# if __name__ == "__main__":
+#     install_requirements()
 
 
 import mediapipe as mp
@@ -25,8 +25,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, accuracy_score
 
-bad_df = pd.read_csv("data/bad_test.csv")
-good_df = pd.read_csv("data/good_test.csv")
+bad_df = pd.read_csv("./data/bad_test.csv")
+good_df = pd.read_csv("./data/good_test.csv")
 #Label data points as good or bad
 bad_df['label'] = 'bad'
 good_df['label'] = 'good' 
@@ -70,3 +70,6 @@ def predict_new_data(new_data):
     predictions = model.predict(new_data)
     scores = model.predict_proba(new_data)
     return predictions
+
+new_data= pd.array([[-0.84,-0.21,0.50,-0.92,-0.06,-0.92,100]])
+print(predict_new_data(new_data))

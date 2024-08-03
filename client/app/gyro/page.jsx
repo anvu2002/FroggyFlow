@@ -28,7 +28,8 @@ const Page = () => {
     window.s = gyroDataRef
 
     timer = setInterval(() => {
-      console.log('send data', currentPacket)
+      console.log('send data', currentPacket) 
+      update();
     }, 1000);
   };
 

@@ -25,10 +25,10 @@ origins = [
 ]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # 允许访问的源
-    allow_credentials=True,  # 支持 cookie
-    allow_methods=["*"],  # 允许使用的请求方法
-    allow_headers=["*"],  # 允许携带的 Headers
+    allow_origins=origins,  
+    allow_credentials=True,  
+    allow_methods=["*"],  
+    allow_headers=["*"],  
 )
 
 app.include_router(service_endpoints_router)
