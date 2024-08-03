@@ -33,21 +33,24 @@ const Navbar = ( ) => {
                 let data;
                 if (user) {
                     console.log("NavBar User = ", user);
-                    const response = await fetch(`/api/users/getUserByEmail/${user.email}`);
-                    data = await response.json();
-                    console.log("data = ",data);
+                    // const response = await fetch(`/api/users/getUserByEmail/${user.email}`);
+                    // data = await response.json();
+                    // console.log("data = ",data);
                     // 
 
-                    const res = await fetch(`/api/users/updateUserById/${user?._id}`, {
-                        method: 'PATCH',
-                        headers: {
-                            'Authorization': `Bearer ${session.accessToken}`,
-                            'Content-Type': 'application/json'
-                        },
+                    const newUserData = {
+                        // sid: user.sid,
+                        name: user.name,
+                        username: user.nickname,
+                        email: user.email
+                    }
+
+                    const res = await fetch(`/api/register`, {
+                        method: 'POST',
                         body: JSON.stringify(newUserData),
                     });
                 } 
-                setUserInfo(data);
+                // setUserInfo(data);
             } catch (error) {
                 console.error('Error fetching user:', error);
             }
@@ -63,7 +66,7 @@ const Navbar = ( ) => {
                     <Image src={logo} width={35} className='mr-1' alt='logo' />
                     <h1 className='font-extrabold text-3xl'>{websiteName}</h1>
                 </div>
-                {userInfo && (
+                {user && (
                     <Link href="/explore" className='hover:underline sm:flex hidden'>Let's Goo!</Link>
                 )}
                 <div className='sm:hidden'>
@@ -81,11 +84,11 @@ const Navbar = ( ) => {
                     <Button onClick={() => router.push('/api/auth/logout')} variant="ghost">
                         Logout
                     </Button>
-                    {userInfo && (
+                    {user && (
                         <div className='flex items-center ml-6'>
                             {console.log("MongoDB userInfo = ", userInfo)}
                             <div><IoIosNotifications size={30} className='cursor-pointer hover:opacity-50' onClick={() => router.push('/pendingConnects')} /></div>
-                            <img onClick={() => router.push('/profile')} className='w-10 h-[2.5rem] rounded-full object-cover ml-9 border border-black cursor-pointer hover:opacity-50' src={userInfo.profilePicture} />
+                            <img onClick={() => router.push('/profile')} className='w-10 h-[2.5rem] rounded-full object-cover ml-9 border border-black cursor-pointer hover:opacity-50' src={user.picture} />
                         </div>
                     )}
                 </div>

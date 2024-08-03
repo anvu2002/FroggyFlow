@@ -17,56 +17,9 @@ const UserSchema = new Schema({
         maxlength: [20, 'Username cannot exceed 20 characters.'],
         // match: [/^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/, "Username invalid, it should contain 8-20 alphanumeric letters and be unique!"]
     },
-    password: {
-        type: String,
-        // required: [true, 'Password is required!']
-    },
-    profilePicture: {
-        type: String,
-        default: "https://static.thenounproject.com/png/1995071-200.png",
-    },
     createdAt: {
         type: Date,
         default: Date.now(),
-    },
-    role: {
-        type: String,
-        default: "user"
-    },
-    tags: {
-        type: [String],
-    },
-    bio: {
-        type: String,
-        max: 150,
-        default: ""
-    },
-    // socials: [String]
-    youtube: {
-        type: String,
-        default: ""
-    },
-    youtubeSubscriberCount: {
-        type: Number
-    },
-    instagram: {
-        type: String,
-        default: ""
-
-    },
-    tiktok: {
-        type: String,
-        default: ""
-
-    },
-    x: {
-        type: String,
-        default: ""
-
-    },
-    firstTime: {
-        type: Boolean,
-        default: true,
     },
     connects: {
         type: [
@@ -96,10 +49,6 @@ const UserSchema = new Schema({
     verificationTokenExpiry: {
         type: Date,
     },
-    isVerified: {
-        type: Boolean,
-        default: false,
-    }
 });
 
 UserSchema.pre('deleteOne', { document: true, query: false }, async function (next) {

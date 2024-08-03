@@ -18,10 +18,12 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="shortcut icon" href="/favicon.ico" />
       </head>
-      <UserProvider>
-        <Navbar />
-        <body className={openSans.className}>{children}</body>
-      </UserProvider>
+      <body>
+        <UserProvider>
+          <Navbar />
+          <div className={openSans.className}>{children}</div>
+        </UserProvider>
+      </body>
     </html>
   );
 }
