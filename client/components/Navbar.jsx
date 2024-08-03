@@ -24,13 +24,6 @@ const Navbar = ( ) => {
     const pathname = usePathname(); // Call usePathname unconditionally
     const [visible, setVisible] = useState(false);
 
-    const handleSignOut = async () => {
-        try {
-            await signOut({ redirect: true, callbackUrl: '/landing' }); // Redirect to homepage after signout
-        } catch (error) {
-            console.error('Error signing out:', error);
-        }
-    };
 
     const isPrelaunch = pathname === '/prelaunch' || pathname === '/thankyou' || pathname === '/maintenance';
 
@@ -43,6 +36,16 @@ const Navbar = ( ) => {
                     const response = await fetch(`/api/users/getUserByEmail/${user.email}`);
                     data = await response.json();
                     console.log("data = ",data);
+                    // 
+
+                    const res = await fetch(`/api/users/updateUserById/${user?._id}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Authorization': `Bearer ${session.accessToken}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(newUserData),
+                    });
                 } 
                 setUserInfo(data);
             } catch (error) {
@@ -80,7 +83,7 @@ const Navbar = ( ) => {
                     </Button>
                     {userInfo && (
                         <div className='flex items-center ml-6'>
-                            {console.log("cool userInfo = ", userInfo)}
+                            {console.log("MongoDB userInfo = ", userInfo)}
                             <div><IoIosNotifications size={30} className='cursor-pointer hover:opacity-50' onClick={() => router.push('/pendingConnects')} /></div>
                             <img onClick={() => router.push('/profile')} className='w-10 h-[2.5rem] rounded-full object-cover ml-9 border border-black cursor-pointer hover:opacity-50' src={userInfo.profilePicture} />
                         </div>

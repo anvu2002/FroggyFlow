@@ -10,12 +10,6 @@ import { jwtMiddleware } from '@/middleware/jwtMiddleware';
 // };
 export const PATCH = async (req, { params }) => {
     const body = await req.json();
-
-    // const authResponse = await jwtMiddleware(req);
-    // if (authResponse) {
-    //     return authResponse;
-    // }
-
     try {
         await connectToDB();
 
