@@ -68,7 +68,21 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                 print (counter)
         except: 
             pass
-        
+
+        # render jumping jack counter
+        # setup status box
+        cv2.rectangle(image, (0,0), (300,150), (245, 117, 16), -1)
+
+        # rep data
+        cv2.putText(image, 'REPS', (20, 80),
+                    cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 1, cv2.LINE_AA)
+        cv2.putText(image, str(counter), (20,130), cv2.FONT_HERSHEY_SIMPLEX, 2, (255,255,255), 2, cv2.LINE_AA)
+
+        # Stage data
+        cv2.putText(image, 'STAGE', (200, 80),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 1, cv2.LINE_AA)
+        cv2.putText(image, stage, (180,130), cv2.FONT_HERSHEY_SIMPLEX, 2, (255,255,255), 2, cv2.LINE_AA)  
+
 
         #drawingSpec is the specification of drawing a landmark
         mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS, 
