@@ -57,7 +57,7 @@ const Page = () => {
                     >
                     {user ? ( <div onClick={handleButtonClick}> Hop into your Study Room!</div>
                        
-                         ) : ( <div onClick={loginButton}>Login</div>)
+                         ) : ( <div onClick={loginButton}>Login/Register</div>)
                     }
                     </motion.button>
                 </div>
