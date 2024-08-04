@@ -15,6 +15,7 @@ const Page = () => {
   const router = useRouter();
   const { user, error, isLoading } = useUser();
   const [started, setStarted] = useState(false);
+  const [finished, setFinished] = useState(false);
   const [time, setTime] = useState(10); //Set time for counter to count down, in seconds
   
   const [timerInterval, setTimerInterval] = useState(0);
@@ -64,23 +65,35 @@ const Page = () => {
 
     setStarted(true);
 
-    setTimerInterval(setInterval(() => {
+    let timer = (setInterval(() => {
       setTime((time) => {
         if (time === 0) {
           console.log('time done')
+          clearInterval(timer)
+          clearInterval(updateTimer)
           timerDone();
-          return 0;
-        } else return time - 1;
+          return -1;
+        } else if(time > 0) {
+          return time - 1
+        };
+        return -1;
       });
     }, 1000));
+    setTimerInterval(timer)
 
-    setDataInterval(setInterval(() => {
+    let updateTimer = (setInterval(() => {
       update();
     }, 1000))
+    setDataInterval(updateTimer)
 
   }
 
   const update = async () => {
+
+    if(finished) {
+      return;
+    }
+
     const request = await fetch(`http://localhost:${8850}/api/gyro_predict`, {
       method: 'POST',
       headers: {
@@ -161,7 +174,7 @@ const Page = () => {
             transition={{ duration: 1 }}
           >
             <span style={{ color: '#ffff66' }}>
-              {`${Math.floor(time / 60)}`.padStart(2, 0)}:{`${time % 60}`.padStart(2, 0)}
+              {time == -1 ? '00:00' : `${Math.floor(time / 60)}`.padStart(2, 0) + ':' + `${time % 60}`.padStart(2, 0)}
             </span>
           </motion.h1>
           <motion.p
