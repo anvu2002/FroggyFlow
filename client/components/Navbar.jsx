@@ -25,7 +25,6 @@ const Navbar = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                let data;
                 if (user) {
                     console.log("NavBar User = ", user);
 
@@ -35,7 +34,7 @@ const Navbar = () => {
                         email: user.email
                     }
 
-                    const res = await fetch(`/api/register`, {
+                    await fetch(`/api/register`, {
                         method: 'POST',
                         body: JSON.stringify(newUserData),
                     });
@@ -49,28 +48,21 @@ const Navbar = () => {
     }, [user]);
 
     return (
-        <div className={`fixed top-0 w-full px-10 navbar_md:px-52 py-3 flex items-center justify-between z-20 bg-white ${isPrelaunch && 'hidden'} shadow-md ${visible ? 'mt-12' : 'mt-0'}`}>
+        <div className={`fixed top-0 w-full px-10 navbar_md:px-52 py-3 flex items-center justify-between z-20 bg-white bg-opacity-20 shadow-md ${visible ? 'mt-12' : 'mt-0'}`}>
             <div className='flex items-center'>
                 <div className='flex cursor-pointer hover:opacity-90' onClick={() => router.push('/landing')}>
                     <Image src={logo} width={35} className='mr-1' alt='logo' />
                     <h1 className='font-extrabold text-3xl'>{websiteName}</h1>
                 </div>
-                <Link href="/about" className='ml-6 text-2xl font-extrabold text-gray-700 hover:underline'>About</Link>
+                <Link href="/about" className='ml-6 text-2xl font-extrabold text-grey hover:text-green-300'>About</Link>
             </div>
             <div className={`flex items-center justify-between ${user ? 'sm:w-[500px]' : 'sm:w-96'}`}>
-                {user && (
-                    <Link href="/explore" className='hover:underline sm:flex hidden'>Let's Goo!</Link>
-                )}
                 <div className='sm:hidden'>
                     <DropDown showMenu={showMenu} setShowMenu={setShowMenu} />
                 </div>
             </div>
             <div className='sm:flex hidden items-end w-44 justify-between font-semibold'>
-                {!user ? (
-                    <Button onClick={() => router.push('/api/auth/login')} variant="ghost">
-                        Login
-                    </Button>
-                ) : (
+                {user && (
                     <>
                         <Button onClick={() => router.push('/api/auth/logout')} variant="ghost">
                             Logout
