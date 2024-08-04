@@ -1,4 +1,5 @@
 from fastapi import Request, APIRouter
+from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from loguru import logger
 import json
@@ -46,15 +47,18 @@ async def session_summary(request: Request):
     data = await request.json()
     results = []
 
+    sum = 0
+
     for item in data['gyro_data']:
         columns = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'time']
         new_data= pd.DataFrame([item], columns=columns)
     
         (result, scores) = predict_new_data(new_data)
-        results.append(scores[0][1])
+        sum += scores[0][1]
+        results.append((scores[0][1], item[6]))
 
-
-    return result
+    json_data = jsonable_encoder({'score': sum / len(results), 'data': results}) 
+    return JSONResponse(content=json_data)
 
 
 
