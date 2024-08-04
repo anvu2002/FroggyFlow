@@ -15,16 +15,15 @@ const Page = () => {
   const [imageInViewRef3, imageInView3] = useInView({ triggerOnce: true });
 
   const [history, setHistory] = useState([])
-  const [fetched, setFetched] = useState(false)
 
   const syncData = async () => {
-    const request = await fetch('/api/sessions/getAllSessions', {
-      method: 'POST',
+    const request = await fetch('/api/sessions/getSessions', {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: user.email
+        user.email
       })
     })
 
@@ -49,11 +48,9 @@ const Page = () => {
     // ])
   }
 
-  if(!isLoading && !fetched) {
-    setFetched(true)
-    
+  useEffect(() => {
     syncData();
-  }
+  }, [])
 
   return (
     <div className='relative min-h-screen overflow-hidden pt-16'>

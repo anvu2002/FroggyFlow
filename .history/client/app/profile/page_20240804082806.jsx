@@ -18,8 +18,8 @@ const Page = () => {
   const [fetched, setFetched] = useState(false)
 
   const syncData = async () => {
-    const request = await fetch('/api/sessions/getAllSessions', {
-      method: 'POST',
+    const request = await fetch('/api/sessions/getSessions', {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -53,6 +53,7 @@ const Page = () => {
     setFetched(true)
     
     syncData();
+  
   }
 
   return (
