@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { websiteName } from '@/config';
 import { useInView } from 'react-intersection-observer';
+import { useUser } from '@auth0/nextjs-auth0/client';
 import Countdown from '@/components/Countdown';
 
 const serviceUUID = "6a8c2fe2-31f5-45d7-96cd-2920dd0645e7";
@@ -12,6 +13,7 @@ const characterUUID = "3d13c8c6-2d96-4868-b17e-2814209874b5";
 
 const Page = () => {
   const router = useRouter();
+  const { user, error, isLoading } = useUser();
   const [started, setStarted] = useState(false);
   const [time, setTime] = useState(10); //Set time for counter to count down, in seconds
   const gyroDataRef = useRef([]);
@@ -126,7 +128,21 @@ const Page = () => {
     const response = await request.json()
 
     localStorage.setItem('gyroData', JSON.stringify(gyroDataRef.current));
-    localStorage.setItem('postureScore', JSON.stringify(response))
+    localStorage.setItem('postureScore', JSON.stringify(response));
+
+
+    const newSessionData = {
+      score: response.score,
+      start: (response[0] && response[0].timestamp) || Date.now(),
+      data: response.data,
+      email: user.email
+    }
+
+    await fetch(`/api/sessions/createSession`, {
+        method: 'POST',
+        body: JSON.stringify(newSessionData),
+    });
+
     router.push('/profile');
   };
 
