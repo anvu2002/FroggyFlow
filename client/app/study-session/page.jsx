@@ -16,11 +16,12 @@ const Page = () => {
   const { user, error, isLoading } = useUser();
   const [started, setStarted] = useState(false);
   const [time, setTime] = useState(10); //Set time for counter to count down, in seconds
+  
+  const [timerInterval, setTimerInterval] = useState(0);
+  const [dataInterval, setDataInterval] = useState(0);
   const gyroDataRef = useRef([]);
 
   let currentPacket = {}
-  let timerInterval = 0;
-  let dataInterval = 0;
   let badPosture = 0
 
   const handleButtonClick = async () => {
@@ -63,19 +64,19 @@ const Page = () => {
 
     setStarted(true);
 
-    timerInterval = setInterval(() => {
+    setTimerInterval(setInterval(() => {
       setTime((time) => {
         if (time === 0) {
-          clearInterval(timerInterval);
+          console.log('time done')
           timerDone();
           return 0;
         } else return time - 1;
       });
-    }, 1000);
+    }, 1000));
 
-    dataInterval = setInterval(() => {
+    setDataInterval(setInterval(() => {
       update();
-    }, 1000);
+    }, 1000))
 
   }
 
