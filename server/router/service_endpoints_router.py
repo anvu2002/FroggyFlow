@@ -1,6 +1,6 @@
 from fastapi import Request, APIRouter
 from fastapi.encoders import jsonable_encoder
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 from loguru import logger
 import json
 import pandas as pd
@@ -8,6 +8,7 @@ import pandas as pd
 
 # Importing the 2 ML Models
 from gyromodel.core import predict_new_data
+from matlab_interface.core import convert_csv_to_image
 
 router = APIRouter(prefix="/api", tags=["api"])
 
@@ -46,6 +47,7 @@ async def session_summary(request: Request):
 
     data = await request.json()
     results = []
+    raw_score = []
 
     sum = 0
 
@@ -55,12 +57,23 @@ async def session_summary(request: Request):
     
         (result, scores) = predict_new_data(new_data)
         sum += scores[0][1]
-        results.append((scores[0][1], item[6]))
+        raw_score.append(scores[0][1])
+        results.append({'score': scores[0][1], 'timestamp': item[6]})
 
-    json_data = jsonable_encoder({'score': sum / len(results), 'data': results}) 
+    score = 0
+
+    if len(results) > 0:
+        score = sum / len(results)
+
+    json_data = jsonable_encoder({'score': score, 'data': results}) 
+
+    convert_csv_to_image(raw_score)
+
     return JSONResponse(content=json_data)
 
 
-
+@router.get('/graph')
+async def get_graph(request: Request):
+    return FileResponse("file.png")
 
 
