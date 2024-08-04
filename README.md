@@ -1,4 +1,4 @@
-# ScholarFrog
+# FroggyFlow
 Hackthe6ix 2024🔥
 ## Getting Started
 
