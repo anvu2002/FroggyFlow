@@ -109,7 +109,7 @@ const Page = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        gyro_data: gyroDataRef
+        gyro_data: gyroDataRef.current
       })
     })
 

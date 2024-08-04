@@ -67,11 +67,10 @@ print("scores: ", scores_percentage)
 
 #Function to predict new data and classify them if bad or good
 def predict_new_data(new_data):
-    logger.debug("type(new_data) = ", type(new_data))
     new_data = scaler.transform(new_data)  
     predictions = model.predict(new_data)
     scores = model.predict_proba(new_data)
-    return predictions[0]
+    return (predictions[0], scores)
 
 # columns = ['ax', 'ay', 'az', 'gx', 'gy', 'gz', 'time']
 # new_data= pd.DataFrame([[-0.84, -0.21, 0.50, -0.92, -0.06, -0.92, 100]], columns=columns)
