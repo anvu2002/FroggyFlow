@@ -30,23 +30,9 @@ const Page = () => {
 
     const response = await request.json()
 
+    response.sort((a, b) => a.start - b.start)
+
     setHistory(response)
-
-    // setHistory([
-    //   {
-    //     score: 0.580,
-    //     start: 1722754120225
-    //   },
-    //   {
-    //     score: 0.24,
-    //     start: 1722754120225
-    //   },
-    //   {
-    //     score: 0.780,
-    //     start: 1722754120225
-    //   }
-
-    // ])
   }
 
   if(!isLoading && !fetched) {
@@ -109,7 +95,7 @@ const Page = () => {
               </tr>
               {
                 history.map((item) => <tr>
-                  <td>{Date(item.start)}</td>
+                  <td>{`${new Date(item.start).toISOString().replace('T', '  ')}`}</td>
                   <td>{Math.round(item.score * 100)}%</td>
                 </tr>)
               }

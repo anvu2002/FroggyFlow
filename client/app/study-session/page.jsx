@@ -157,7 +157,7 @@ const Page = () => {
         body: JSON.stringify(newSessionData),
     });
 
-    router.push('/profile');
+    router.push('/resting');
   };
 
   return (
