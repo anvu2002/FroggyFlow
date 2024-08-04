@@ -3,3 +3,4 @@ pandas
 mediapipe
 opencv-python
 scikit-learn
+loguru
