@@ -54,7 +54,7 @@ const Navbar = () => {
                     <Image src={logo} width={35} className='mr-1' alt='logo' />
                     <h1 className='font-extrabold text-3xl'>{websiteName}</h1>
                 </div>
-                <Link href="/about" className='ml-6 text-2xl font-extrabold text-grey hover:text-green-300'>About</Link>
+                <Link href="/about" className='ml-14 text-2xl font-extrabold text-grey hover:text-green-300'>About</Link> {/* Increased margin-left to 14 */}
             </div>
             <div className={`flex items-center justify-between ${user ? 'sm:w-[500px]' : 'sm:w-96'}`}>
                 <div className='sm:hidden'>
