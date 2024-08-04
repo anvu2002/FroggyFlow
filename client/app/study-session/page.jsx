@@ -13,13 +13,13 @@ const characterUUID = "3d13c8c6-2d96-4868-b17e-2814209874b5";
 const Page = () => {
   const router = useRouter();
   const [started, setStarted] = useState(false);
-  const [time, setTime] = useState(20); //Set time for counter to count down, in seconds
-  const [badPosture, setBadPosture] = useState(0);
+  const [time, setTime] = useState(10); //Set time for counter to count down, in seconds
   const gyroDataRef = useRef([]);
 
   let currentPacket = {}
   let timerInterval = 0;
   let dataInterval = 0;
+  let badPosture = 0
 
   const handleButtonClick = async () => {
     if (started) {
@@ -78,7 +78,7 @@ const Page = () => {
   }
 
   const update = async () => {
-    const response = await fetch(`http://localhost:${8850}/api/gyro_predict`, {
+    const request = await fetch(`http://localhost:${8850}/api/gyro_predict`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -88,22 +88,32 @@ const Page = () => {
       })
     })
 
-    const text = await response.text();
+    let text = await request.text();
+
+    // get rid of "
+    text = text.replaceAll('"', '')
+
+    console.log(text)
 
     if(text == "good") {
-      console.log("YAY :)")
-      setBadPosture(0);
+      badPosture --
+      if(badPosture < 0) {
+        badPosture = 0
+      }
     } else if(text == "bad") {
-      console.log("SAD :(")
-      setBadPosture(badPosture + 1);
+      badPosture++
       if(badPosture == 5) {
-        console.log('FIVE BAD POSTURE IN A ROW :(((')
+        badPosture = 0
+        alert("you got bad posture 😢 please fix it 🥺🥺")
       }
     }
   }
 
   const timerDone = async () => {
-    const response = await fetch(`http://localhost:${8850}/api/session_summary`, {
+    clearInterval(timerInterval);
+    clearInterval(dataInterval);
+
+    const request = await fetch(`http://localhost:${8850}/api/session_summary`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -113,9 +123,10 @@ const Page = () => {
       })
     })
 
+    const response = await request.json()
+
     localStorage.setItem('gyroData', JSON.stringify(gyroDataRef.current));
-    clearInterval(timerInterval);
-    clearInterval(dataInterval);
+    localStorage.setItem('postureScore', JSON.stringify(response))
     router.push('/profile');
   };
 
