@@ -81,7 +81,7 @@ const Page = () => {
         />
       </div>
 
-      <div className='absolute bottom-0 left-0 m-4 p-4 bg-white bg-opacity-20 shadow-lg rounded-lg' style={{ width: 'calc(50% - 50px)', height: 'calc(60% - 50px)' }}>
+      <div className='absolute bottom-0 left-0 m-4 p-4 bg-white bg-opacity-90 shadow-lg rounded-lg' style={{ width: 'calc(50% - 50px)', height: 'calc(60% - 50px)' }}>
         <motion.div
           className='w-full h-full object-contain'
           initial={{ opacity: 1 }}
