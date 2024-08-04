@@ -4,16 +4,23 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { websiteName } from '@/config';
 import { useInView } from 'react-intersection-observer';
+import { useUser } from '@auth0/nextjs-auth0/client';
+
 
 const Page = () => {
     const router = useRouter();
     const [imageInViewRef1, imageInView1] = useInView({ triggerOnce: true });
     const [imageInViewRef2, imageInView2] = useInView({ triggerOnce: true });
     const [imageInViewRef3, imageInView3] = useInView({ triggerOnce: true });
+    const { user, error, isLoading } = useUser();
+
 
     const handleButtonClick = () => {
-        // Add your navigation or action logic here
         router.push('/study-session');
+    }
+
+    const loginButton = () => {
+        router.push('/api/auth/login');
     }
 
     return (
@@ -43,12 +50,15 @@ const Page = () => {
                     </motion.p>
                     <motion.button
                         className="mt-8 px-6 py-3 text-lg font-semibold text-sky-950 bg-green-300 rounded-md shadow-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 animate-bounce"
-                        onClick={handleButtonClick}
+                        
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, delay: 1 }}
                     >
-                        Hop into your study room
+                    {user ? ( <div onClick={handleButtonClick}> Hop into your Study Room!</div>
+                       
+                         ) : ( <div onClick={loginButton}>Login</div>)
+                    }
                     </motion.button>
                 </div>
             </div>
