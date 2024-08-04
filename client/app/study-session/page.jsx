@@ -13,7 +13,7 @@ const characterUUID = "3d13c8c6-2d96-4868-b17e-2814209874b5";
 const Page = () => {
   const router = useRouter();
   const [started, setStarted] = useState(false);
-  const [time, setTime] = useState(20); //Set time for counter to count down, in seconds
+  const [time, setTime] = useState(5); //Set time for counter to count down, in seconds
   const [badPosture, setBadPosture] = useState(0);
   const gyroDataRef = useRef([]);
 
@@ -77,7 +77,7 @@ const Page = () => {
 
   }
 
-  const update = async () => {
+ const update = async () => {
     const response = await fetch(`http://localhost:${8850}/api/gyro_predict`, {
       method: 'POST',
       headers: {
@@ -96,8 +96,8 @@ const Page = () => {
     } else if(text == "bad") {
       console.log("SAD :(")
       setBadPosture(badPosture + 1);
-      if(badPosture == 5) {
-        console.log('FIVE BAD POSTURE IN A ROW :(((')
+      if(badPosture == 10) {
+        console.log('TEN BAD POSTURE IN A ROW :(((')
       }
     }
   }
@@ -116,7 +116,7 @@ const Page = () => {
     localStorage.setItem('gyroData', JSON.stringify(gyroDataRef.current));
     clearInterval(timerInterval);
     clearInterval(dataInterval);
-    router.push('/profile');
+    router.push('/resting');
   };
 
   return (
