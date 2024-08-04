@@ -102,7 +102,8 @@ const Page = () => {
     }
   }
 
-  const timerDone = async () => {
+  const timerDone = () => {
+
     const response = await fetch(`http://localhost:${8850}/api/session_summary`, {
       method: 'POST',
       headers: {
@@ -111,7 +112,7 @@ const Page = () => {
       body: JSON.stringify({
         gyro_data: gyroDataRef
       })
-    })
+    }
 
     localStorage.setItem('gyroData', JSON.stringify(gyroDataRef.current));
     clearInterval(timerInterval);

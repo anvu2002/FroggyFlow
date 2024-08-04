@@ -34,7 +34,7 @@ const Page = () => {
   };
 
   const update = async () => {
-    const resposne = await fetch(`http://localhost:${8850}/api/gyro_predict`, {
+    const response = await fetch(`http://localhost:${8850}/api/gyro_predict`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -103,6 +103,7 @@ const Page = () => {
   }
 
   const timerDone = async () => {
+
     const response = await fetch(`http://localhost:${8850}/api/session_summary`, {
       method: 'POST',
       headers: {
