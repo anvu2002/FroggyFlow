@@ -13,7 +13,7 @@ const characterUUID = "3d13c8c6-2d96-4868-b17e-2814209874b5";
 const Page = () => {
   const router = useRouter();
   const [started, setStarted] = useState(false);
-  const [time, setTime] = useState(5);
+  const [time, setTime] = useState(20); //Set time for counter to count down, in seconds
   const [badPosture, setBadPosture] = useState(0);
   const gyroDataRef = useRef([]);
 
