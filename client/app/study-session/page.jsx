@@ -13,7 +13,7 @@ const Page = () => {
 
     const handleButtonClick = () => {
         // Add your navigation or action logic here
-        router.push('/study-session');
+        router.push('/profile');
     }
 
     return (
@@ -29,9 +29,7 @@ const Page = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1 }}
                     >
-                        <span style={{ color: '#ffff66' }}>Hop, </span>
-                        <span style={{ color: '#029588 ' }}>Hopping, </span>
-                        <span style={{ color: '#94DEA5' }}>With the Flowww...</span>
+                        <span style={{ color: '#ffff66' }}>INSERT TIMER HERE </span>
                     </motion.h1>
                     <motion.p
                         className="text-xl text-white mt-8 font-bp"
@@ -39,16 +37,16 @@ const Page = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, delay: 0.5 }}
                     >
-                        Optimize your study session!
+                        You'll be reminded to take breaks every 30 minutes!
                     </motion.p>
                     <motion.button
-                        className="mt-8 px-6 py-3 text-lg font-semibold text-sky-950 bg-green-300 rounded-md shadow-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 animate-bounce"
+                        className="mt-8 px-6 py-3 text-lg font-semibold text-sky-950 bg-green-300 rounded-md shadow-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                         onClick={handleButtonClick}
                         initial={{ opacity: 0, y: 50 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, delay: 1 }}
                     >
-                        Hop into your study room
+                        End session
                     </motion.button>
                 </div>
             </div>

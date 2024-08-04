@@ -8,7 +8,10 @@ import { useInView } from 'react-intersection-observer';
 const Page = () => {
     return (
         <>
-            <div className='h-full-minus-navbar mt-[66px] text-center sm:mx-32 mx-10'>
+            <div 
+                className='h-full-minus-navbar mt-[66px] text-center sm:mx-32 mx-10'
+                style={{ backgroundImage: "url('/frog_background.png')", backgroundPosition: 'center bottom', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}
+            >
                 <div className='flex justify-center items-center h-[70%]'>
                     <div className='w-full'>
                         <div className='w-full flex justify-center items-center flex-col'>
@@ -18,7 +21,7 @@ const Page = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1 }}
                             >
-                                About Klink
+                                Say Hello to your study bestie FroggyFlow!
                             </motion.h1>
                             <motion.p
                                 className="text-xl text-gray-600 mt-8"
@@ -26,7 +29,10 @@ const Page = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1, delay: 1 }}
                             >
-                                {websiteName} is a platform created by creators for creators. {websiteName} is expanding to reach all content creators around the world!
+                                FroggyFlow is a study buddy for you to get stuff done!
+                                FroggyFlow will make sure you maintain the most ergonomic posture when studying or working and remind you to take breaks!
+                                It is recommended that you take breaks every 30 minutes in order to stay productive. Make sure to move around too!
+                                During your rest time you can play some active games with Froggy!
                             </motion.p>
                         </div>
                     </div>
@@ -34,7 +40,6 @@ const Page = () => {
             </div>
             <Footer />
         </>
-
     )
 }
 
