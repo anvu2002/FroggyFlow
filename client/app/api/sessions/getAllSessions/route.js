@@ -2,15 +2,16 @@ import { jwtMiddleware } from '@/middleware/jwtMiddleware';
 import { connectToDB } from '@/utils/database';
 import Session from "@/models/session";
 
-export const GET = async (req, { params }) => {
+export const POST = async (req, res) => {
+  const { email } = await req.json();
+
   try {
     await connectToDB();
-    const email = params.email;
     if (!email) {
       return new Response("Email is required", { status: 400 });
     }
 
-    const sessions = await Session.findAll({ email });
+    const sessions = await Session.find({ email });
     if (!sessions) {
       return new Response("Sessions for user email not found", { status: 404 });
     }
