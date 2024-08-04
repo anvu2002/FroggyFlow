@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
 
-const Countdown = ({ duration, onEndCallback }) => {
+const Countdown = ({ duration, running, onEndCallback }) => {
 
   // 30 minute timer
  
@@ -27,9 +27,9 @@ const Countdown = ({ duration, onEndCallback }) => {
   }, []);
 
   return (
-    <h1>
+    <span style={{ color: '#ffff66' }}>
       {`${Math.floor(time / 60)}`.padStart(2, 0)}:{`${time % 60}`.padStart(2, 0)}
-    </h1>
+    </span>
   );
 }
 
